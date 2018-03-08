@@ -2,6 +2,14 @@
   Create an article
 </h1>
 
+<!-- Link to articles -->
+<!-- articles_path = /articles -->
+<p>
+  <%= link_to "All Articles", articles_path %>  
+</p>
+
+
+
 <!-- If there are any errors adding "@article",  -->
 <% if @article.errors.any? %>
   <h2>The following errors prevented the article from being created:</h2>

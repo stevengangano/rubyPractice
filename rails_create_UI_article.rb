@@ -210,7 +210,7 @@ end
 
 <h1> Showing selected article </h1>
 
-<p> Title: <%= @article.title %> </p>
+<p> Title: <%= @article.title %> </p> => "@article" is from "def show"
 
 <p> Description: <%= @article.description %> </p>
 
@@ -318,6 +318,63 @@ class ArticlesController < ApplicationController
  
 end
   
+19) Displays the index page
+
+    def index
+      @articles = Article.all => Grabs all articles from the database
+    end
+
+20) Create views/index.html.erb. 
+
+   <table>
+  
+    <tr>
+      <th> Title </th>
+    </tr>
+  
+    <% @articles.each do |article| %> => @articles = Grabs all articles from "def index"
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.description %></td>
+    </tr>
+    <% end %>
+
+   </table>
+
+21) Finding paths. Type: rake routes
+
+         Prefix Verb   URI Pattern                  Controller#Action
+        root GET    /                            pages#home
+       about GET    /about(.:format)             pages#about
+    articles GET    /articles(.:format)          articles#index
+             POST   /articles(.:format)          articles#create
+ new_article GET    /articles/new(.:format)      articles#new
+edit_article GET    /articles/:id/edit(.:format) articles#edit
+     article GET    /articles/:id(.:format)      articles#show
+             PATCH  /articles/:id(.:format)      articles#update
+             PUT    /articles/:id(.:format)      articles#update
+             DELETE /articles/:id(.:format)      articles#destroy
+
+
+For example: 
+  
+<table>
+  
+<tr>
+  <th> Title </th>
+</tr>
+  
+<% @articles.each do |article| %> 
+  <tr>
+    <td><%= article.title %></td>
+    <td><%= article.description %></td>
+    <td><%= link_to 'Edit', edit_article_path(article) %></td> => "(article)" needs to be passed since there is an ID in the path    
+    <td><%= link_to 'Show', article_path(article) %></td> => "(article)" needs to be passed since there is an ID in the path
+  </tr>
+<% end %>
+
+</table>
+
 
 
 

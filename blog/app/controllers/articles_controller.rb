@@ -1,10 +1,18 @@
 class ArticlesController < ApplicationController
+  
+  #index page (/articles)
+  def index
+    @articles = Article.all
+  end
+  
+  #Form to create new article (articles/new)
   def new
     @article = Article.new
   end
   
+  #Posts an article from (articles/new)
   def create
-#     render plain: params[:article].inspect 
+    #render plain: params[:article].inspect 
     @article = Article.new(article_params)
     if @article.save 
         flash[:notice] = "Article was successfully created" 
@@ -13,15 +21,18 @@ class ArticlesController < ApplicationController
       render :new 
     end
   end
-      
+  
+  #Show page (/articles/:id)
   def show  
      @article = Article.find(params[:id])
   end
   
+  #Page to edit (/articles/:id/edit)
   def edit
     @article = Article.find(params[:id])
   end
   
+  #Posts the updated article (articles/:id)
   def update
     @article = Article.find(params[:id])
     if @article.update(article_params)
@@ -32,6 +43,7 @@ class ArticlesController < ApplicationController
     end
   end
   
+  #method to add data to the database
   private
     def article_params
       params.require(:article).permit(:title, :description) 

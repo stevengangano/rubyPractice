@@ -1,7 +1,9 @@
 <h1> Showing selected article </h1>
 
+<p><%= link_to 'All articles', articles_path %></p>    
+<p><%= link_to 'Edit', edit_article_path(@article) %></p>    
+
+
 <p> Title: <%= @article.title %> </p>
 
 <p> Description: <%= @article.description %> </p>
-
-<p> Article object: <%= @article %> </p>
