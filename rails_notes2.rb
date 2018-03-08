@@ -60,6 +60,8 @@ Creating images/links:
 #LINKS  
 <%= link_to 'Link to the about page', pages_about_path %>
 
+pages_about_path = pages/about
+
 #Images
 <%= image_tag 'fb.jpg' %>
 
