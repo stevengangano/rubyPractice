@@ -1,0 +1,29 @@
+<h1>
+  Create an article
+</h1>
+
+<%= form_for @article do |f| %>
+   <p>
+      <!--Displays "title" -->
+      <%= f.label :title %> <br/>
+      <!--Displays input box, ":title" grabs from  -->
+      <%= f.text_field :title %> 
+   </p>
+
+   <p>
+      <!--Displays "Description" -->
+      <%= f.label :description %> <br/>
+      <!--Displays input box -->
+      <%= f.text_area :description %> 
+   </p>
+
+
+  <p>
+    <!--Creates a submit button -->
+    <%= f.submit %> 
+  </p>
+
+
+<% end %>
+  
+  
