@@ -459,6 +459,33 @@ For example:
     <td><%= link_to 'Delete', article_path(article), method: :delete, data: {"confirm: Are you sure?"} %> </td>
 
 
+24) Preventing redundancies in code
+
+    For example, go to articles_controller.rb
+    
+    1) Create a method in "private" 
+
+      Type:
+
+      def set_article
+       @article = Article.find(params[:id])
+      end
+
+
+    2) Deleting anything from articles_controller.rb with:
+
+    @article = Article.find(params[:id])
+    
+
+    3) At the top, type:
+    
+    before_action :set_article, only: [:edit, :update, :show, :destroy]
+    
+    => ":set_article" = method defined 
+    => :edit, :update, :show, :destroy => includes that method into those routes 
+    
+   
+
 
 
 
