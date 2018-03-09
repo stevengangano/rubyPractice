@@ -20,6 +20,11 @@ Styling
   @import "bootstrap-sprockets";
   @import "bootstrap";
 
+  Regular css code goes here, for example:
+  .jumbotron {
+    color: black;
+   }
+
 4) Writing link in embedded ruby code in _navigation.html.erb:
 
   For example:
@@ -31,11 +36,11 @@ Styling
 5) Style home.html.erb:
 
   <div class="text-center jumbotron">
-  
+
     <h1>Alpha Blog</h1>
-    <p> <%= link_to 'Sign up now', '#', class: "btn btn-primary btn-sm" %> </p>
-    <p><%= link_to 'Blog', articles_path, class: "btn btn-success btn-sm" %></p>  
-  
-  </div>   
+    <p> <%= link_to 'Sign up now', '#', class: "btn btn-primary btn-xlarge", style: 'padding:25px;' %> </p>
+    <p><%= link_to 'Blog', articles_path, class: "btn btn-success btn-xlarge" %></p>  
+
+  </div>   ]]]
   
   

@@ -150,7 +150,7 @@ end
 
     <body>
       
-      <%= flash.each do |name, msg| %>
+      <%= flash.each do |name, msg| %> => must pass in both. msg must come after name.
         <ul>
           <li> <%= msg %> </li>  
        </ul>
