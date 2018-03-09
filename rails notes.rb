@@ -1,7 +1,7 @@
 #Starting Server
 
 rails s --binding=0.0.0.0
-
+https://Ruby-on-Rails-stevengangano376808.codeanyapp.com
 
 #Gems => These are like dependencies
 

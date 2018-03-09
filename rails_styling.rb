@@ -1,57 +1,41 @@
-Wiring framing tools(design tool):
+Styling
 
-Go to balsamiq.com => 30 day trial
+1) Go to app/views/layouts/application.html.erb 
 
+  <%= yield %> => Displays all views
 
-1) Installing bootstrap
+  At the top of body, type:
+
+  <%= render 'layouts/navigation' %>    
+
+2) Create file, views/layouts/_navigation.html.erb
+
+  Copy and paste, bootstrap navbar code in this file => Navbar will display on every 
+  page
+
+3) To change color of navbar in scss, go custom.css.scss:
+
+  $navbar-default-bg: black;
+
+  @import "bootstrap-sprockets";
+  @import "bootstrap";
+
+4) Writing link in embedded ruby code in _navigation.html.erb:
+
+  For example:
+
+  <%= link_to "Alpha blog", root_path, class: "navbar-brand", id: "logo" %>
+     
+  <li> <%= link_to "Articles", articles_path %> </li>
+
+5) Style home.html.erb:
+
+  <div class="text-center jumbotron">
   
-  Copy:
-
-  gem 'bootstrap', '~> 4.0.0' => Bootstrap 4
-
-  or 
-
-  gem 'bootstrap-sass', '~> 3.3.5'
-
-2) Paste into Gemfile, like so:
-
-   # Use SCSS for stylesheets
-   gem 'bootstrap-sass', '~> 3.3.5'
-   gem 'sass-rails', '~> 5.0'
-
-   Then cmnd + s to save
-
-3) If server is running, shutdown.
-
-4) In terminal, type:
-
-   bundle install --without production
-
-5) Create scss stylesheets. Add app/assets/stylesheets/custom.css.scss
-
-   Type:
-
-   @import "bootstrap-sprockets";
-   @import "bootstrap";
-
-6) Go to app/assets/javascripts/application.js
-
-   Type:
-
-    //= require jquery
-    //= require jquery_ujs
-    //= require bootstrap-sprockets => Add this here
-    //= require turbolinks
-    //= require_tree .
-
-
+    <h1>Alpha Blog</h1>
+    <p> <%= link_to 'Sign up now', '#', class: "btn btn-primary btn-sm" %> </p>
+    <p><%= link_to 'Blog', articles_path, class: "btn btn-success btn-sm" %></p>  
+  
+  </div>   
   
   
-  
-
-  
-
-  
-  
-
-

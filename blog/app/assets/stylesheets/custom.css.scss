@@ -1,2 +1,58 @@
-   @import "bootstrap-sprockets";
-   @import "bootstrap";
+$navbar-default-bg: black;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#logo {
+  float: left;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  letter-spaacing: -1px;
+  font-weight: bold;
+}
+
+#logo:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.jumbotron {
+  background-image: asset-url('newspaper_cover.jpg');
+  background-size: cover;
+  height: 750px;
+}
+
+.jumbotron h1 {
+   color: black;
+   text-align: center;
+   position: relative;
+   bottom: 100px;
+   margin-bottom: 100px;
+   letter-spacing: -1px;
+   font-weight: bold;
+}
+
+footer {
+  padding-top: 5px;
+  border-top: 1px solid black;
+  color: black;
+}
+
+footer a:hover {
+  color: blue;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 15px;
+}
