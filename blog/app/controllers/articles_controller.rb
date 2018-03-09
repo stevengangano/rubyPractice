@@ -43,6 +43,15 @@ class ArticlesController < ApplicationController
     end
   end
   
+  #Delete route (/articles/:id)
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    flash[:notice] = "Article was successfully deleted"
+    redirect_to articles_path         
+  end
+
+  
   #method to add data to the database
   private
     def article_params

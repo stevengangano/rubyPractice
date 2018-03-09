@@ -144,7 +144,7 @@ class ArticlesController < ApplicationController
 end
     
     
-12) Displaying the flash message FROM "def create" when SUCCESSFUL. Go to views/layouts/application.html.erb.
+12) Displays any flash message FROM "def create, def destroy" when SUCCESSFUL. Go to views/layouts/application.html.erb.
   
     Note: Everything in views is wrapped by (views/layouts/application.html.erb)
 
@@ -230,41 +230,41 @@ end
     Note: Title and Description field will be pre-populated with existing data
     Copy EVERYTHING FROM new.html.erb:
 
-<!-- If there are any errors adding "@article",  -->
-<% if @article.errors.any? %>
-  <h2>The following errors prevented the article from being created:</h2>
-  <!--For each full message,  -->
-  <ul>
-  <% @article.errors.full_messages.each do |msg| %>
-    <!--Display the error message -->
-    <li><%= msg %></li>
+    <!-- If there are any errors adding "@article",  -->
+    <% if @article.errors.any? %>
+      <h2>The following errors prevented the article from being created:</h2>
+      <!--For each full message,  -->
+      <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <!--Display the error message -->
+        <li><%= msg %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_for @article do |f| %>
-   <p>
-      <!--Displays "title" -->
-      <%= f.label :title %> <br/>
-      <!--Displays input box, ":title" grabs from  -->
-      <%= f.text_field :title %> 
-   </p>
+    <%= form_for @article do |f| %>
+       <p>
+          <!--Displays "title" -->
+          <%= f.label :title %> <br/>
+          <!--Displays input box, ":title" grabs from  -->
+          <%= f.text_field :title %> 
+       </p>
 
-   <p>
-      <!--Displays "Description" -->
-      <%= f.label :description %> <br/>
-      <!--Displays input box -->
-      <%= f.text_area :description %> 
-   </p>
+       <p>
+          <!--Displays "Description" -->
+          <%= f.label :description %> <br/>
+          <!--Displays input box -->
+          <%= f.text_area :description %> 
+       </p>
 
 
-  <p>
-    <!--Creates a submit button -->
-    <%= f.submit %> 
-  </p>
+      <p>
+        <!--Creates a submit button -->
+        <%= f.submit %> 
+      </p>
 
 
-<% end %>
+    <% end %>
 
 
 18) Create update route (same as "def create")
@@ -376,11 +376,87 @@ For example:
 </table>
 
 
+21) Partials: Used to remove redundancies. For example:
+    
+    new.html.erb and edit.html.erb are the same
+
+    1)
+
+    To create a partial, go to views/articles => _form.html.erb
+
+    Copy and paste new.html.erb to _form.html.erb:
+
+    <!-- Link to articles -->
+    <!-- articles_path = /articles -->
+    <p>
+      <%= link_to "All Articles", articles_path %>  
+    </p>
+
+    <!-- If there are any errors adding "@article",  -->
+    <% if @article.errors.any? %>
+      <h2>The following errors prevented the article from being created:</h2>
+      <!--For each full message,  -->
+      <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <!--Display the error message -->
+        <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <%= form_for @article do |f| %>
+       <p>
+          <!--Displays "title" -->
+          <%= f.label :title %> <br/>
+          <!--Displays input box, ":title" grabs from  -->
+          <%= f.text_field :title %> 
+       </p>
+
+       <p>
+          <!--Displays "Description" -->
+          <%= f.label :description %> <br/>
+          <!--Displays input box -->
+          <%= f.text_area :description %> 
+       </p>
+
+
+      <p>
+        <!--Creates a submit button -->
+        <%= f.submit %> 
+      </p>
+
+
+    <% end %>
+
+    <% end %>
+
+
+  2) Delete text from new.html.erb, edit.html.erb and type:
+
+    <%= render 'form' %> 
+
+    Note: 'form' b/c it is in the same directory 
+    as new.html.erb. Additionally, by default, it will look
+    in the views/articles folder.
+
+22) Deleting an article
+
+    Go to articles_controllers.rb and create destroy path:
+
+    Type:
+
+    def destroy
+      @article = Article.find(params[:id]) => Find the ID of the article
+      @article.destroy => Destroys the article
+      flash[:notice] = "Article was successfully deleted"
+      redirect_to articles_path => Redirecs to /articles
+    end
 
 
 
+23) Add the destroy link to index.html.erb
 
-
+    <td><%= link_to 'Delete', article_path(article), method: :delete, data: {"confirm: Are you sure?"} %> </td>
 
 
 

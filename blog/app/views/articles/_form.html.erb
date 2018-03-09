@@ -1,0 +1,41 @@
+<!-- Link to articles -->
+<!-- articles_path = /articles -->
+<p>
+  <%= link_to "All Articles", articles_path %>  
+</p>
+
+<!-- If there are any errors adding "@article",  -->
+<% if @article.errors.any? %>
+  <h2>The following errors prevented the article from being created:</h2>
+  <!--For each full message,  -->
+  <ul>
+  <% @article.errors.full_messages.each do |msg| %>
+    <!--Display the error message -->
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @article do |f| %>
+   <p>
+      <!--Displays "title" -->
+      <%= f.label :title %> <br/>
+      <!--Displays input box, ":title" grabs from  -->
+      <%= f.text_field :title %> 
+   </p>
+
+   <p>
+      <!--Displays "Description" -->
+      <%= f.label :description %> <br/>
+      <!--Displays input box -->
+      <%= f.text_area :description %> 
+   </p>
+
+
+  <p>
+    <!--Creates a submit button -->
+    <%= f.submit %> 
+  </p>
+
+
+<% end %>
