@@ -485,6 +485,14 @@ For example:
     => :edit, :update, :show, :destroy => includes that method into those routes 
     
    
+25) Deploy
+
+    1) Watch heroku deploy tutorial again.
+    2) Type: heroku run rake db:migrate => This adds the databases to your application
+    3) Type: git add .
+       Type: git commit -m ""
+       Type: git push => pushes to github
+       Type: git push heroku master => To deploy to heroku
 
 
 

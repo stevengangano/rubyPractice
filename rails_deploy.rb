@@ -1,7 +1,7 @@
 Deploying to heroku
 
 1)  Go "Gemfile"
-2)  Cut "sqlite3" from the top
+2)  Cut "sqlite3" from the top => b/c heroku does not support sqlite. It uses postgres
 3)  Paste under:
     group :development, :test do
     gem 'sqlite3'
@@ -13,7 +13,10 @@ Deploying to heroku
     end
 5) In the terminal type:
 
-   bundle install --without production
+   bundle install --without production => Does not install 'pg' and 'rails_12factor' in local environment,
+                                          but it will update Gemfile.lock file for heroku to use.
+  
+
 
 6) Install codeanywhere heroku toolbelt:
 
@@ -31,14 +34,25 @@ Deploying to heroku
 
 9) Commit changes to git
 
-  git add .git
+  git add .
   git commit -m "Deploy the app"
-  heroku keys:add
+  heroku keys:add => Type: Y
 
 10) If you did not create a SSH key, you can generate
     in the terminal:
 
-    Type: ssh-keygen -t rsa -C "stevengangano@yahoo.com"
+    Type: ssh-keygen -t rsa
 
-11) Git push heroku master
+11) Checking for heroku keys
+  
+    Type: heroku keys => Displays "found" keys
+  
+12) Removing keys
+
+    Type:
+
+    heroku keys:remove adam@workstation.local
+
+
+13) Git push heroku master
 
