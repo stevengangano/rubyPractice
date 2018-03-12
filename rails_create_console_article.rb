@@ -1,8 +1,10 @@
+*****Blog******
+
 Creating tables
 
 1) Type: rails generate migration create_articles => This create migration file in db folder
 
-2) Create what you want to insert into your table in the migration file.2
+2) Create what you want to insert into your table in the migration file.
 
   For example: t.string :title
 

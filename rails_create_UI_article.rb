@@ -1,8 +1,10 @@
+*****Blog******
+
 Creating new Articles from UI
 
        Note:
 
-       Db/migrate > Db/schema.rb > Model > Controller > Views
+       Db/migrate > Db/schema.rb > Models > Controller > Views
 
 
 1) Creating "articles/new" route

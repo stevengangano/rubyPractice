@@ -1,3 +1,5 @@
+*****Test App******
+
 Checking if the route exists:
 
 rake routes
@@ -46,6 +48,7 @@ Writing Ruby in a .html.erb:
 
 <%= %> = Displays onto the screen
 
+****Blog******
   
 Creating a new rails app:
   

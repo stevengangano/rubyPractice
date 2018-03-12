@@ -197,7 +197,7 @@ For example, in articles_controller.rb:
   </div>
 </div>
 
-13) Styling the index page. Go to view/articles/index.html.erb
+13) Styling the index page. Go to view/articles/index.html.erb:
 
 <h1> Listing all article </h1>
 
