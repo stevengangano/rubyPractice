@@ -3,6 +3,7 @@ $navbar-default-bg: black;
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Navbar
 #logo {
   float: left;
   font-size: 1.7em;
@@ -17,6 +18,7 @@ $navbar-default-bg: black;
   text-decoration: none;
 }
 
+// Root page
 .jumbotron {
   background-image: asset-url('newspaper_cover.jpg');
   background-size: cover;
@@ -31,6 +33,28 @@ $navbar-default-bg: black;
    margin-bottom: 100px;
    letter-spacing: -1px;
    font-weight: bold;
+}
+
+// Index Page
+.article-title {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.article-body {
+  border-top: 1px solid #eaeaea;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+// Show page
+.article-actions {
+  border-top: 1px solid #eaeaea;
+  padding-top: 5px;
+}
+
+.description {
+  margin-top: 0;
 }
 
 footer {

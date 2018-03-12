@@ -178,4 +178,58 @@ For example, in articles_controller.rb:
     flash[:danger] = "Article was successfully deleted" => :danger = "name" & "Article was successfully created" = "msg" in _flashMessages.html.erb
     redirect_to articles_path         
   end 
+        
+12) Styling the show page with bootstrap. Go to view/articles/show.html.erb
+      
+<h2 class="text-center"> Title: <%= @article.title %> </h2>
+
+
+<div class="well col-xs-8 col-xs-offset-2">
+  <h4 class="center description"> <strong>Description:</strong></h4>
+  <hr>
+  <%= simple_format(@article.description) %> => Turns text into HTML
+    
+  
+  <div class ="article-actions">
+    <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-xs btn-primary" %> 
+    <%= link_to 'Delete', article_path(@article), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-xs btn-danger" %> 
+    <%= link_to 'All articles', articles_path, class: "btn btn-xs btn-success" %>  
+  </div>
+</div>
+
+13) Styling the index page. Go to view/articles/index.html.erb
+
+<h1> Listing all article </h1>
+
+<!-- Link to articles/new -->
+<!-- new_article_path = new/article -->
+<p>
+  <%= link_to "Create new article", new_article_path %>  
+</p>
+
+
+<% @articles.each do |article| %> 
+<div class="row">
+ <div class="col-xs-8 col-xs-offset-2">
+   <div class="well well-lg">
+     
+     <div class="article-title">
+       <%= article.title %>
+     </div>
+     
+     <div class="article-body">
+      <%= truncate(article.description, length: 100) %> => takes description and only shows 100 max characters
+     </div>
+     
+     <div class="article-actions">
+      <%= link_to 'Edit', edit_article_path(article), class: "btn btn-xs btn-primary" %> 
+      <%= link_to 'Delete', article_path(article), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-xs btn-danger" %>   
+      </div>
+     
+     </div>
+   </div>
+  </div>
+</div>
+<% end %>
+
   
