@@ -150,7 +150,7 @@ end
 
     <body>
       
-      <%= flash.each do |name, msg| %> => must pass in both. msg must come after name.
+      <%= flash.each do |name, msg| %> => Loops through each flash message in controller. name:msg is a key value pair. For example: "Notice: Article was successfully created"          
         <ul>
           <li> <%= msg %> </li>  
        </ul>
