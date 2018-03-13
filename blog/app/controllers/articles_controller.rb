@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
   #index page (/articles)
   def index
     @articles = Article.all
+    puts @articles
   end
   
   #Form to create new article (articles/new)
@@ -15,7 +16,6 @@ class ArticlesController < ApplicationController
   
   #Posts an article from (articles/new)
   def create
-    debugger
     #render plain: params[:article].inspect 
     @article = Article.new(article_params)
     @article.user = User.first
