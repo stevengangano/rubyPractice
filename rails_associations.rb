@@ -1,4 +1,4 @@
-Association: 
+Associations: 
 
 When an article is created by a user, the database saves the user's ID for that particular article.
 
@@ -191,6 +191,116 @@ When an article is created by a user, the database saves the user's ID for that 
    Type: user3.save
    Type. User.all
 
+6) Merge user-validations branch with master branch
+
+   Type: git add .
+   Type: git commit -m ""
+   Type: git checkout master => Added validations to models/user.rb are now gone
+   Type: git merge user-validations => Check if it was merged
+   Type: git push
+   Type: git branch -d user-validations => Deletes branch
+   Type: git branch => checks if branch was deleted
+
+
+
+1) Creating associations between users and articles
+
+  Type: git checkout -b userarticle-associations => creates a new branch
+
+2) Create a migration file
+  
+  Type: rails generate migration add_user_id_to_articles => Creates a table in migrate/db
+  
+
+3) Go to newly created migration file:
+
+  class AddUserIdToArticles < ActiveRecord::Migration
+    def change
+      add_column :articles(table name), :user_id (1st column), :integer(type) => Note needs to be integer for foreign key
+    end
+  end
+
+
+4) Type rake db:migrate => creates the column user_id. Look at "articles" table in schema.rb
+
+5) Go to rails console
+
+   Type: Article.all => check to see if "user_id" was added 
+
+
+6) Go to models/user.rb
+    
+  class User < ActiveRecord::Base
+
+  has_many :articles => Add this. Creates association with article. (plural b/c "class User" is the one side of the one too many association)
+  before_save { self.email = email.downcase } => Add this. Before email is sent to database, it will make sure it is lowercase
+  
+  validates :username, presence:true, 
+            uniqueness: { case_sensitive:false }, 
+            length: { minimum: 3, maximum: 25 }
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, 
+            length: { maximum: 105 },
+            uniqueness: { case_sensitive: false },
+            format: { with: VALID_EMAIL_REGEX }
+  end
+
+7) Go to models/article.rb
+
+  class Article < ActiveRecord::Base
+
+    belongs_to :user => Add this. Creates association with user. (singluar b/c "class Article" is the many side of the one to many association)
+    
+    validates :title, presence: true, length: { minimum: 3, maximum: 50 }
+    validates :description, presence: true, length: { minimum: 3, maximum: 50 }
+
+  end
+
+8) Add user_id validation to models/article.rb
+
+
+    class Article < ActiveRecord::Base
+
+    belongs_to :user 
+    
+    validates :title, presence: true, length: { minimum: 3, maximum: 50 }
+    validates :description, presence: true, length: { minimum: 3, maximum: 50 }
+    validates :user_id, presence: true => Ensures anytime an article is being created, there is an article present
+
+  end
+
+
+9) Create new article in console:
+
+   Type: article = Article.new(title: "This is some article", description: "New article")
+   Type: article.save
+   tType: article.errors.full_messages => shows error messages
+
+10) Create new article with user id in console:
+
+    Type: article = Article.new(title: "This is some article", description: "New article" user: User.first)
+    Type: article.save  
+    Type: Article.all => shows newly created with user ID
+
+11) Check to see if an article can created from the UI
+
+    A validation error will show up b/c there must be a user associated with creating
+    an article.
+
+12) Go to articles_controller.rb
+  
+    #Posts an article from (articles/new)
+    def create
+    #render plain: params[:article].inspect 
+    @article = Article.new(article_params)
+    if @article.save 
+        flash[:success] = "Article was successfully created" 
+        redirect_to article_path(@article)
+    else
+      render :new 
+    end
+  end
 
 
 
