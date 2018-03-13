@@ -383,8 +383,6 @@ Note: This adds :user_id to the articles table. See schema.rb.
          </small>
     </div>
   
-  
-  
     Note: time_ago_in_words() is a ruby method to format time
    
       
