@@ -194,9 +194,164 @@ Adding Users from the UI
                
   Type: User.all => checks if user was added to the database
 
+  Push to git hub "Add users from UI"
 
 
+Editing a User
+
+1) Go to users.controller.rb and add edit action:
+
+   def edit
+    @user = User.find(params[:id]) => This finds the users id
+   end  
 
 
+2) Go to views/users and create edit.html.erb:
+
+Copy and paste new.html.erb into here.
+
+Note: Only changes is "Edit your account" and submit button says "Update"
+
+
+<h1 class="text-center"> Edit your account </h1>
+
+<%= render 'shared/errors', obj: @user %> 
+
+<div class="row">
+  <div class='col-xs-12'>
+
+        <%= form_for(@user, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+        <div class="form-group">
+          <div class="control-label col-sm-2">
+              <!--Displays "Username" -->
+              <%= f.label :username %> 
+          </div>
+          <div class="col-sm-8">
+              <!--Displays input box, ":title" grabs from  -->
+              <%= f.text_field :username, class: "form-control", placeholder: "Enter Username", autofocus: true %>    
+          </div>
+       </div>
+
+       <div class="form-group">
+          <div class="control-label col-sm-2">
+              <!--Displays "Email" -->
+              <%= f.label :email %> 
+         </div>
+          <div class="col-sm-8">
+              <!--Displays input box -->
+              <%= f.email_field :email, class:"form-control", placeholder: "Enter your email" %> 
+         </div>
+      </div>
+
+
+       <div class="form-group">
+          <div class="control-label col-sm-2">
+              <!--Displays "Password" -->
+              <%= f.label :password %> 
+         </div>
+          <div class="col-sm-8">
+              <!--Displays input box -->
+              <%= f.password_field :password, class:"form-control", placeholder: "Enter password" %> 
+         </div>
+      </div>    
+
+
+      <div class="form-group">
+        <div class="col-sm-10 col-xs-offset-2">
+            <!--Creates a submit button -->
+            <%= f.submit "Update", class:"btn btn-primary btn-lg" %> 
+        </div>
+      </div>
+
+    <div class="col-xs-4 col-xs-offset-4 text-center">
+      [ <%= link_to "All Articles", articles_path %> ]
+   </div> 
+
+        <% end %>
+
+   </div>
+</div>
+
+3) Go to users_controllers.rb and create update action:
+
+  Type:
+
+  def update
+    # Go to users/id/edit
+    @user = User.find(params[:id]) => This finds users ID
+    if @user.update(user_params) => updates the Users account
+     flash[:success] = "Your account was updated successfully"
+     redirect_to articles_path 
+    else
+      render :edit
+    end
+  end
+
+4) Create partial for users/new.html.erb & users/edit.html.erb:
+
+   Note:
    
+   #For submit button. If the user is new, show "Sign up" if not show "Update account"
+   <%= f.submit(@user.new_record?) ? "Sign up" : "Update account", class:"btn btn-primary btn-lg" %>
+
+   Create _form.html.erb:
+
+    <%= render 'shared/errors', obj: @user %> 
+
+    <div class="row">
+      <div class='col-xs-12'>
+
+            <%= form_for(@user, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+            <div class="form-group">
+              <div class="control-label col-sm-2">
+                  <!--Displays "Username" -->
+                  <%= f.label :username %> 
+              </div>
+              <div class="col-sm-8">
+                  <!--Displays input box, ":title" grabs from  -->
+                  <%= f.text_field :username, class: "form-control", placeholder: "Enter Username", autofocus: true %>    
+              </div>
+           </div>
+
+           <div class="form-group">
+              <div class="control-label col-sm-2">
+                  <!--Displays "Email" -->
+                  <%= f.label :email %> 
+             </div>
+              <div class="col-sm-8">
+                  <!--Displays input box -->
+                  <%= f.email_field :email, class:"form-control", placeholder: "Enter your email" %> 
+             </div>
+          </div>
+
+
+           <div class="form-group">
+              <div class="control-label col-sm-2">
+                  <!--Displays "Password" -->
+                  <%= f.label :password %> 
+             </div>
+              <div class="col-sm-8">
+                  <!--Displays input box -->
+                  <%= f.password_field :password, class:"form-control", placeholder: "Enter password" %> 
+             </div>
+          </div>    
+
+
+          <div class="form-group">
+            <div class="col-sm-10 col-xs-offset-2">
+                <!--Creates a submit button -->
+                <%= f.submit(@user.new_record?) ? "Sign up" : "Update account", class:"btn btn-primary btn-lg" %> 
+            </div>
+          </div>
+
+        <div class="col-xs-4 col-xs-offset-4 text-center">
+          [ <%= link_to "All Articles", articles_path %> ]
+       </div> 
+
+            <% end %>
+
+       </div>
+    </div>
+
+
 
