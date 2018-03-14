@@ -11,16 +11,13 @@ Rails.application.routes.draw do
   get '/about', to: 'pages#about'
 
   resources :articles
-<<<<<<< HEAD
 
   #"users" = controller, "new" = action defined in controller
   get 'signup', to: 'users#new'
 
   #Second method. Creates CRUD routes but omits "new" because we already created it
   resources :users, except: [:new]
-  
-=======
->>>>>>> d6e2702f9d843c3eec3d80a6bfe2d8f587406d8e
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
