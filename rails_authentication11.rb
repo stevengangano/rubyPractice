@@ -200,7 +200,8 @@ Adding Users from the UI
 Editing a User
 
 1) Go to users.controller.rb and add edit action:
-
+  
+   #Go to users/:id/
    def edit
     @user = User.find(params[:id]) => This finds the users id
    end  
@@ -277,7 +278,7 @@ Note: Only changes is "Edit your account" and submit button says "Update"
   Type:
 
   def update
-    # Go to users/id/edit
+    # Go to users/:id/
     @user = User.find(params[:id]) => This finds users ID
     if @user.update(user_params) => updates the Users account
      flash[:success] = "Your account was updated successfully"
@@ -292,7 +293,7 @@ Note: Only changes is "Edit your account" and submit button says "Update"
    Note:
    
    #For submit button. If the user is new, show "Sign up" if not show "Update account"
-   <%= f.submit(@user.new_record?) ? "Sign up" : "Update account", class:"btn btn-primary btn-lg" %>
+   <%= f.submit(@user.new_record? ? "Sign up" : "Update account", class:"btn btn-primary btn-lg" %>
 
    Create _form.html.erb:
 
@@ -340,7 +341,7 @@ Note: Only changes is "Edit your account" and submit button says "Update"
           <div class="form-group">
             <div class="col-sm-10 col-xs-offset-2">
                 <!--Creates a submit button -->
-                <%= f.submit(@user.new_record?) ? "Sign up" : "Update account", class:"btn btn-primary btn-lg" %> 
+                <%= f.submit(@user.new_record? ? "Sign up" : "Update account", class:"btn btn-primary btn-lg" %> 
             </div>
           </div>
 
@@ -353,5 +354,187 @@ Note: Only changes is "Edit your account" and submit button says "Update"
        </div>
     </div>
 
+5) Go to users/new.html.erb & users/edit.html.erb:
+                  
+   Type:
+                  
+   <%= render 'form' %>
 
+
+Creating Show Page for Users
+
+1) Add "def show" action users_controllers.rb
+
+  #/users/:id
+	def show
+		@user = User.find(params[:id]) 
+	end
+
+2) Create users/show.html.erb
+
+<h1 class="text-center"> Welcome to <%= @user.username %>'s page </h1>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4 center">
+    <%= gravatar_for @user, size: 250 %> => "gravatar_for" is defined in helpers/application_helper.rb. "@user" is passed to the method as "user". Size changes size of image.
+  </div>
+</div>
+
+<h4 class="text-center">
+  <%= @user.username %>'s articles
+</h4>
+  
+3) Go to helpers/application_helper.rb to define gravatar_for
+    
+  Type:
+    
+  module ApplicationHelper
+
+    def gravatar_for(user, options = {size: 80})
+      gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+      size = options[:size]
+      gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s#{size}"
+      image_tag(gravatar_url, alt: user.username, class: "img-circle")
+    end
+
+  end
+
+4) Listing articles only the user posted on users show page
+  
+   1) Create a partial file called articles/_article.html.erb
+   2) Cut and paste articles/index.html.erb to _article.html.erb 
+   3) In index.html.erb, type:
+           
+      <%= render 'article' obj: @article %>
+
+   4) Go to /articles to check if all articles are there
+   5) Go to _article.html.erb and replace "@articles" with "obj"
+   6) Go to show.html.erb and type:
+
+   <%= render 'articles/article', obj:@user.articles %> => Displays only the users articles
+ 
+            
+Create index action for users ("/users")
+  
+1) Create index action. Go to uers_controller.rb.
+              
+   def index
+    @users = User.all => Grabs all users
+   end
+            
+2) Create file named users/index.html.erb
+                
+   Type:
+                
+   <h1 class="text-center"> All Bloggers </h1>
+
+    <% @users.each do |user| %> => "@users" grabs all users from "def index"
+
+      <ul class="listing">
+        <div class="row"> 
+          <div class="well col-md-4 col-md-offset-4">   
+            <li><%= link_to gravatar_for(user), user_path(user) %></li> => displays gravatar image
+            <li class="article-title"> <%= link_to user.username, user_path(user) %></li> => displays use name
+            <li><small><%= pluralize(user.articles.count, "article") if user.articles %> </small></li> => displays number of articles if there any articles
+          </div>
+        </div>
+      </ul>
+
+    <% end %>
+
+3) Style the "listing" class in custom.css.scss:
+
+    .listing {
+      list-style: none;
+      padding-left: 0;
+    }
+
+4) Update the articles/show.html.erb file to show gravatar, username, # of articles
+
+<% if @article.user %>
+  <ul class="listing">
+    <div class="row center">
+      <div class="col-md-4 col-md-offset-4">
+        <li>Created by:</li>
+          <li><%= link_to gravatar_for(@article.user), user_path(@article.user) %></li>
+            <li class="article-title">
+              <%= link_to @article.user.username, user_path(@article.user) %>
+           </li>
+          <li><small><%= pluralize(@article.user.articles.count, "article") if @article.user.articles %> </small></li>
+
+      </div>
+     </div>
+    </ul>
+
+<% end %>
+
+5) Push to github
+
+
+Using pagination so not all articles will be displayed in one page
+
+1) Adding the gems needed for pagination. Go Gemfile and type:
+
+  gem 'will_paginate', '3.0.7'
+  gem 'bootstrap-will_paginate', '0.0.10'
+
+2) Go to articles_controller.rb
+
+   Change:
+
+   def index
+    @articles = Article.all
+   end
+  
+   To:
+
+   def index
+    @articles = Article.paginate(page: params[:page], per_page: 5) => Displays 5 per page. Must have at least 5 articles for it show.
+   end
+
+3) Go to articles/index.html.erb
+    
+   <div class="center"> 
+    <%= will_paginate %>
+   </div>
+     
+   <%= render 'article', obj: @articles %>
+
+   <div class="center"> 
+    <%= will_paginate %>
+   </div>
+     
+     
+Adding pagination for "/users" (Same as above) => Displays all users
+     
+1) Go to users_controller.rb
+     
+   def index
+    @users = Users.paginate(page: params[:page], per_page: 5) => Displays 5 per page
+   end
+  
+2) Go to users/index.html.erb
+    
+    Type under <div class="listing">:
+        
+    <%= will_paginate %>
+
+Adding pagination articles displayed for each users page (user/:id)
+
+1) Go to users/show.html.erb
+
+   def user_params
+    @user = User.find (params[:id])
+    @user_articles = @user.articles.paginate(page: params[:page], per_page: 5) => Grabs users articles created
+   end
+
+2) Go to users/show.html.erb. Type this at the top and bottom:
+    
+   <div class="text-center">         
+    <%= will_paginate @user_articles %>
+  </div>
+
+   <%= render 'articles/article', obj: @user_articles %> => Change to @user_articles
+		 
+		 
 

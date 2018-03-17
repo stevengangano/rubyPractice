@@ -8,7 +8,7 @@ Creating a route:
 
 Go to app/config/routes.rb
 
-welcome# = controller
+welcome# = controller, home = 'def home' in the controller
 
 root 'welcome#home'
 get 'welcome/about', to: 'welcome#about'

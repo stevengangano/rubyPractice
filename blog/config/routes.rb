@@ -17,6 +17,13 @@ Rails.application.routes.draw do
 
   #Second method. Creates CRUD routes but omits "new" because we already created it
   resources :users, except: [:new]
+  
+  #login form
+  get 'login', to: 'sessions#new'
+  #def create => login
+  post 'login', to: 'sessions#create'
+  #def destroy => logout
+  delete 'logout', to: 'sessions#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

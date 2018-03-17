@@ -19,7 +19,8 @@ rubyonrails.org/documentation
 MVC Model
 
 User sends request => ruby router => controller
-(ex: ctrlr.rb) => goes to:
+(ex: ctrlr.rb) => goes to: 
+
 1) (View) home.html 
 
 or 
