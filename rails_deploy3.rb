@@ -54,5 +54,5 @@ Deploying to heroku
     heroku keys:remove adam@workstation.local
 
 
-13) Git push heroku master
+13) Git push heroku master, heroku run db:migrate
 

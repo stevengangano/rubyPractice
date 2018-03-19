@@ -195,3 +195,28 @@ end
   </ul>
 
 <% end %>
+
+4) Set admin from heroku
+
+  Type: heroku run rails console
+  Type: User.all => shows all users
+  Type: user = User.find(1) => Find user with ID "1"
+  Type: user.admin? => Checks if admin. true or false.
+  Type: user.toggle!(:admin) => Sets admin to true
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
